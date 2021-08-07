@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.basic.common.domain.Ztree;
 import com.basic.entity.SysArea;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.basic.entity.SysOrganization;
 import com.basic.service.SysOrganizationService;
 import com.basic.mapper.SysOrganizationMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 /**
@@ -32,6 +34,12 @@ public class SysOrganizationServiceImpl extends ServiceImpl<SysOrganizationMappe
             organization.setAncestors("0");
         }
         return baseMapper.insert(organization);
+    }
+
+    public List<Ztree> getAllTree() {
+        QueryWrapper wrapper =  new QueryWrapper();
+        List<SysOrganization> organizations = baseMapper.selectList(wrapper);
+        return installTree(organizations, null);
     }
 
     public int updateOrganization(SysOrganization organization) {
@@ -75,4 +83,26 @@ public class SysOrganizationServiceImpl extends ServiceImpl<SysOrganizationMappe
         return 1;
     }
 
+    private List<Ztree> installTree(List<SysOrganization> organizationList, List<SysOrganization> checkedList) {
+        List<Ztree> treeList = new ArrayList<Ztree>();
+        if (organizationList != null && organizationList.size() > 0) {
+            for (SysOrganization organization : organizationList) {
+                Ztree tree = new Ztree();
+                tree.setId(organization.getId());
+                tree.setPId(organization.getPid());
+                tree.setTitle(organization.getName());
+                tree.setName(organization.getName());
+//                tree.setType(organization.getOrgType());
+                if (checkedList != null && checkedList.size() > 0) {
+                    for (SysOrganization check : checkedList) {
+                        if (check.getId().equals(organization.getId())) {
+                            tree.setChecked(true);
+                        }
+                    }
+                }
+                treeList.add(tree);
+            }
+        }
+        return treeList;
+    }
 }

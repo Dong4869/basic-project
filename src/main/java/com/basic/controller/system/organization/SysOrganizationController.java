@@ -1,6 +1,7 @@
 package com.basic.controller.system.organization;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.basic.common.domain.Ztree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -151,5 +152,11 @@ public class SysOrganizationController extends BasicController {
             return sysOrganizationService.getById(id.trim());
         }
         return null;
+    }
+
+    @GetMapping("findAllTree")
+    @ResponseBody
+    public List<Ztree> findTreeList() {
+        return sysOrganizationService.getAllTree();
     }
 }
