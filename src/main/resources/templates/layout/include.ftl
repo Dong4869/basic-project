@@ -50,7 +50,13 @@
     <script src="${ctx}/static/js/common.js?v=4.1.0"></script>
     <script src="${ctx}/static/js/custom-ui.js?v=4.1.0"></script>
 </#macro>
-
+<!-- ui布局插件 -->
+<#macro css_layout>
+    <link href="${ctx}/static/plugins/jquery-layout/jquery.layout-latest.css" rel="stylesheet"/>
+</#macro>
+<#macro js_layout>
+    <script src="${ctx}/static/plugins/jquery-layout/jquery.layout-latest.js"></script>
+</#macro>
 <#macro css_ztree>
     <link href="${ctx}/static/plugins/jquery-ztree/3.5/css/metro/zTreeStyle.css" rel="stylesheet"/>
 </#macro>
