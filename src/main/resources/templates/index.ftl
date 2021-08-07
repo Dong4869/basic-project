@@ -79,6 +79,7 @@
                     <ul class="nav nav-second-level">
                         <li><a class="menuItem" href="${ctx}/testCompany">公司管理</a></li>
                         <li><a class="menuItem" href="${ctx}/testPosition">职位管理</a></li>
+                        <li><a class="menuItem" href="${ctx}/employee">员工管理</a></li>
                     </ul>
                 </li>
                 <li>
